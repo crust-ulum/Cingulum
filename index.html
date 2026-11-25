@@ -42100,25 +42100,65 @@ names.sort((a,b)=>b[1]-a[1])
 
 function search(x) {
     x = x.toLocaleLowerCase()
+    let leftdot = x[0] == "."
+    let rightdot = x[x.length-1] == "."
     let mnames = names
-    for (let i = 0; i < x.length; i++) {
-        let nmnames = []
-        for (let j = 0; j < mnames.length; j++) {
-            let q = mnames[j][0][i]
-            if (q == undefined) continue
-            if (q.toLocaleLowerCase() == x[i] || q.toLocaleUpperCase() == x[i]) {
-                nmnames.push(mnames[j])
+    if (x[x.length-1] == ".") x = x.substr(0,x.length-1)
+    if (x[0] == ".") x = x.substr(1,x.length-1)
+    if (leftdot) {
+        for (let i = 0; i < x.length; i++) {
+            let znames = []
+            for (let j = 0; j < mnames.length; j++) {
+                let q = mnames[j][0][i]
+                if (q == undefined) continue
+                if (q.toLocaleLowerCase() == x[i] || q.toLocaleUpperCase() == x[i]) {
+                    znames.push(mnames[j])
+                }
             }
+            mnames = znames
         }
-        mnames = nmnames
+        return mnames
     }
-    return mnames
+    if (rightdot) {
+        for (let i = 0; i < x.length; i++) {
+            let znames = []
+            for (let j = 0; j < mnames.length; j++) {
+                let q = mnames[j][0][x.length-1-i]
+                if (q == undefined) continue
+                if (q.toLocaleLowerCase() == x[i] || q.toLocaleUpperCase() == x[i]) {
+                    znames.push(mnames[j])
+                }
+            }
+            mnames = znames
+        }
+        return mnames
+    }
+    if (leftdot && rightdot) {
+        let znames = []
+        for (let j = 0; j < mnames.length; j++) {
+            if (mnames[j][0].includes(x)) {
+                znames.push(mames[j])
+        }
+        return znames
+    }
 }
 function htmlIze(x) {
     if (x.length == 0) return `No names.`
-    return x.map((u)=>`${u[0]}: ${Number(u[1]).toLocaleString()}`.fontcolor(u[2]=="M"?"#88f":"#f88")).join("\n")
+    let totalk = 0; let totalb = 0; let totalg = 0
+    let totalkp = 0; let totalbp = 0; let totalgp = 0
+    x.map((u)=>{
+        totalk++; totalkp += u[1]
+        if (u[2] == "M") {
+            totalb++; totalbp += u[1]
+        } else {
+            totalg++; totalgp += u[1]
+        }
+    })
+    let totalN = `${totalb.toLocaleString().fontcolor("#88f")}:${totalk}:${totalg.toLocaleString().fontcolor("#f88")}`
+    let totalP = `${totalbp.toLocaleString().fontcolor("#88f")}:${totalkp}:${totalgp.toLocaleString().fontcolor("#f88")}`
+    let total = `${totalN} <Names People> ${totalP}`
+    return total + "\n" + x.map((u)=>`${u[0]}: ${Number(u[1]).toLocaleString()}`.fontcolor(u[2]=="M"?"#88f":"#f88")).join("\n")
 }
-
 total = 0
 names.map((u)=>total+=Number(u[1]))
 function random() {
@@ -42141,7 +42181,7 @@ document.body.appendChild(document.createElement("br"))
 document.body.appendChild(document.createElement("br"))
 r = document.createElement("div")
 r.setAttribute("style","font-family:'consolas',monospace;font-size:20px;word-break:break-word;white-space:pre-line;color:white")
-r.innerHTML = "type up a name and press enter\npress \"/\" to get a random name"
+r.innerHTML = "search a name by:\n[query] or [query]. => the beginning\n.[query] => the end\n.[query]. => containing\npress \"/\" to get a random name"
 document.body.appendChild(r)
 document.addEventListener("keydown", (E)=>{
     if (E.key == "Enter") {
@@ -42153,8 +42193,8 @@ document.addEventListener("keydown", (E)=>{
     }
 })
 setInterval(()=>{
-    if (e.value[e.value.length-1] == "/") {
-        e.value = e.value.substr(0,e.value.length-1)
+    if (e.value.includes("/")) {
+        e.value = e.value.replaceAll("/","")
     }
 }, 0) // what a dirty trick
 </script>
