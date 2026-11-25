@@ -42138,6 +42138,7 @@ function search(x) {
         for (let j = 0; j < mnames.length; j++) {
             if (mnames[j][0].includes(x)) {
                 znames.push(mames[j])
+            }
         }
         return znames
     }
@@ -42187,14 +42188,11 @@ document.addEventListener("keydown", (E)=>{
     if (E.key == "Enter") {
         r.innerHTML = htmlIze(search(e.value))
     }
-    if (E.key == "/") {
-        e.value = random()
-        r.innerHTML = ""
-    }
 })
 setInterval(()=>{
     if (e.value.includes("/")) {
-        e.value = e.value.replaceAll("/","")
+        e.value = random()
+        r.innerHTML = ""
     }
 }, 0) // what a dirty trick
 </script>
