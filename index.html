@@ -42105,7 +42105,7 @@ function search(x) {
     let mnames = names
     if (x[x.length-1] == ".") x = x.substr(0,x.length-1)
     if (x[0] == ".") x = x.substr(1,x.length-1)
-    if (rightdot) {
+    if (rightdot || (!leftdot && !rightdot)) {
         for (let i = 0; i < x.length; i++) {
             let znames = []
             for (let j = 0; j < mnames.length; j++) {
@@ -42123,9 +42123,9 @@ function search(x) {
         for (let i = 0; i < x.length; i++) {
             let znames = []
             for (let j = 0; j < mnames.length; j++) {
-                let q = mnames[j][0][x.length-1-i]
+                let q = mnames[j][0][mnames[j][0].length-1-i]
                 if (q == undefined) continue
-                if (q.toLocaleLowerCase() == x[i] || q.toLocaleUpperCase() == x[i]) {
+                if (q.toLocaleLowerCase() == x[x.length-1-i] || q.toLocaleUpperCase() == x[x.length-1-i]) {
                     znames.push(mnames[j])
                 }
             }
