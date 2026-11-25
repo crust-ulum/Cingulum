@@ -42105,7 +42105,7 @@ function search(x) {
     let mnames = names
     if (x[x.length-1] == ".") x = x.substr(0,x.length-1)
     if (x[0] == ".") x = x.substr(1,x.length-1)
-    if (leftdot) {
+    if (rightdot) {
         for (let i = 0; i < x.length; i++) {
             let znames = []
             for (let j = 0; j < mnames.length; j++) {
@@ -42119,7 +42119,7 @@ function search(x) {
         }
         return mnames
     }
-    if (rightdot) {
+    if (leftdot) {
         for (let i = 0; i < x.length; i++) {
             let znames = []
             for (let j = 0; j < mnames.length; j++) {
@@ -42148,11 +42148,11 @@ function htmlIze(x) {
     let totalk = 0; let totalb = 0; let totalg = 0
     let totalkp = 0; let totalbp = 0; let totalgp = 0
     x.map((u)=>{
-        totalk++; totalkp += u[1]
+        totalk++; totalkp += Number(u[1])
         if (u[2] == "M") {
-            totalb++; totalbp += u[1]
+            totalb++; totalbp += Number(u[1])
         } else {
-            totalg++; totalgp += u[1]
+            totalg++; totalgp += Number(u[1])
         }
     })
     let totalN = `${totalb.toLocaleString().fontcolor("#88f")}:${totalk}:${totalg.toLocaleString().fontcolor("#f88")}`
