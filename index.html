@@ -42105,6 +42105,15 @@ function search(x) {
     let mnames = names
     if (x[x.length-1] == ".") x = x.substr(0,x.length-1)
     if (x[0] == ".") x = x.substr(1,x.length-1)
+    if (leftdot && rightdot) {
+        let znames = []
+        for (let j = 0; j < mnames.length; j++) {
+            if (mnames[j][0].toLocaleLowerCase().includes(x.toLocaleLowerCase())) {
+                znames.push(mnames[j])
+            }
+        }
+        return znames
+    }
     if (rightdot || (!leftdot && !rightdot)) {
         for (let i = 0; i < x.length; i++) {
             let znames = []
@@ -42132,15 +42141,6 @@ function search(x) {
             mnames = znames
         }
         return mnames
-    }
-    if (leftdot && rightdot) {
-        let znames = []
-        for (let j = 0; j < mnames.length; j++) {
-            if (mnames[j][0].toLocaleLowerCase().includes(x.toLocaleLowerCase())) {
-                znames.push(mnames[j])
-            }
-        }
-        return znames
     }
 }
 function htmlIze(x) {
