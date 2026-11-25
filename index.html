@@ -42136,8 +42136,8 @@ function search(x) {
     if (leftdot && rightdot) {
         let znames = []
         for (let j = 0; j < mnames.length; j++) {
-            if (mnames[j][0].includes(x)) {
-                znames.push(mames[j])
+            if (mnames[j][0].toLocaleLowerCase().includes(x.toLocaleLowerCase())) {
+                znames.push(mnames[j])
             }
         }
         return znames
