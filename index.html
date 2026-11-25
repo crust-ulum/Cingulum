@@ -42155,10 +42155,9 @@ function htmlIze(x) {
             totalg++; totalgp += Number(u[1])
         }
     })
-    let totalN = `${totalb.toLocaleString().fontcolor("#88f")}:${totalk}:${totalg.toLocaleString().fontcolor("#f88")}`
-    let totalP = `${totalbp.toLocaleString().fontcolor("#88f")}:${totalkp}:${totalgp.toLocaleString().fontcolor("#f88")}`
-    let total = `${totalN} <Names People> ${totalP}`
-    return total + "\n" + x.map((u)=>`${u[0]}: ${Number(u[1]).toLocaleString()}`.fontcolor(u[2]=="M"?"#88f":"#f88")).join("\n")
+    let totalN = `${totalb.toLocaleString().fontcolor("#88f")}#${totalk.toLocaleString()}#${totalg.toLocaleString().fontcolor("#f88")}`
+    let totalP = `${totalbp.toLocaleString().fontcolor("#88f")}#${totalkp.toLocaleString()}#${totalgp.toLocaleString().fontcolor("#f88")}`
+    return `${totalN} Name//Freq ${totalP}\n` + x.map((u)=>`${u[0]}: ${Number(u[1]).toLocaleString()}`.fontcolor(u[2]=="M"?"#88f":"#f88")).join("\n")
 }
 total = 0
 names.map((u)=>total+=Number(u[1]))
